@@ -62,22 +62,15 @@ There are two things you can do about this warning:
 
 (add-hook 'makefile-mode-hook 'whitespace-mode)
 
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-c g") 'helm-git-grep)
-(global-set-key (kbd "C-c C-g") 'helm-git-grep-at-point)
-;Invoke `helm-git-grep' from isearch.
-(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
-;Invoke `helm-git-grep' from other helm.
-(eval-after-load 'helm
-  '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
-(global-set-key (kbd "C-x C-o") 'ff-find-other-file)
- 
-(windmove-default-keybindings 'super)
-(setq windmove-wrap-around t)
+;;custom stuff
+(setq vc-follow-symlinks nil)
 
+;;macros
 ;;macros
 (fset 'idir
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 5 134217848 114 101 112 108 97 99 101 45 115 116 114 105 110 103 return 32 return 32 92 17 10 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 return] 0 "%d")) arg)))
+
+;;funcs
 
 (defun match-paren (arg)
   "Go to the matching paren if on a paren; otherwise insert %."
@@ -86,9 +79,25 @@ There are two things you can do about this warning:
 	((looking-at "\\s)") (forward-char 1) (backward-list 1))
 	(t (self-insert-command (or arg 1)))))
 
-(global-set-key (kbd "C-x C-k 0") 'idir)
 
+;;key binds
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-c g") 'helm-git-grep)
+(global-set-key (kbd "C-c C-g") 'helm-git-grep-at-point)
+(global-set-key (kbd "C-x C-o") 'ff-find-other-file)
+(global-set-key (kbd "C-x C-k 0") 'idir)
 (global-set-key "%" 'match-paren)
+
+(windmove-default-keybindings 'super)
+(setq windmove-wrap-around t)
+
+;;extra helm bindssure
+;Invoke `helm-git-grep' from isearch.
+(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
+;Invoke `helm-git-grep' from other helm.
+(eval-after-load 'helm
+  '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
