@@ -7,7 +7,7 @@ eval "$(direnv hook bash)"
 GITPROMPTFILE="/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
 if [ -f ${GITPROMPTFILE} ]; then
     __GIT_PROMPT_DIR="/usr/local/opt/bash-git-prompt/share"
-    GIT_PROMPT_ONLY_IN_REPO=1
+    #GIT_PROMPT_ONLY_IN_REPO=1
     GIT_PROMPT_THEME=Solarized
     source ${GITPROMPTFILE}
 fi
