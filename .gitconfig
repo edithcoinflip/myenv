@@ -1,0 +1,116 @@
+[user]
+	name = Adam Edelstein
+	email = Adam.Edelstein@tastytrade.com
+	username = adam.edelstein
+[core]
+	editor = emacs
+	excludesfile = ~/.gitignore
+	whitespace=space-before-tab,trailing-space
+
+[color]
+	ui = auto
+	grep=auto
+
+[color "branch"]
+	current = yellow bold
+	local = green bold
+	remote = cyan bold
+	
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+[color "status"]
+	added = green bold
+	changed = yellow bold
+	untracked = red bold
+
+[diff]
+	mnemonicprefix = true
+	renames=copies
+	colorMoved=true
+	colorMovedWS=ignore-space-at-eol
+	#colorMovedWS=allow-indentation-change
+
+[merge]
+	log=true
+
+[push]
+	default = current
+
+[rebase]
+	autosquash = true
+	missingCommitsCheck=warn
+	abbreviateCommands=true
+	
+[rerere]
+	enabled = 1
+	autoupdate = 1
+
+[status]
+	showStash=true
+	
+[github]
+	user = asedel
+
+#URL SHORTCUTS
+[url "https://github.com/"]
+    insteadOf = gh:
+
+[url "https://gist.github.com/"]
+    insteadOf = gist:
+	
+[alias]
+	br = branch
+	brv = branch -vv
+	gu = rev-parse --abbrev-ref HEAD
+	ci = commit
+	cim = commit -m
+	cia = commit --amend
+	cian = commit --amend --no-edit
+	co = checkout
+	cob = checkout -b
+	cl = clone
+	cp = cherry-pick
+
+	diffu=diff HEAD ^@{u}
+	fe = fetch
+	fo = fetch origin
+	fu = fetch upstream
+	fk = fsck
+
+	ls = ls-files
+	shit = ls-files --others
+	crap = shit
+	junk = shit
+
+	rb = rebase
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbi = rebase --interactive
+	rbs = rebase --skip
+	rbu = rebase @{u}
+	#reword head commit without committing anything q
+	reword = commit --amend --only
+	st = status
+
+	pushdf="push --force-with-lease"
+
+	#STASHING
+	snap = !git stash save 'snapshot: $(date)' && git stash apply 'stash@{0}'
+	
+	sync = remote update
+
+	staged = diff --cached
+	
+	## logs
+	lol   = log --graph       --abbrev-commit --date=short --format=format:'%C(green)%h%C(reset) %C(cyan)%ad%C(reset) %C(white)%s%C(reset) %C(bold white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+	lal   = log --graph --all --abbrev-commit --date=short --format=format:'%C(green)%h%C(reset) %C(cyan)%ad%C(reset) %C(white)%s%C(reset) %C(bold white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+
+	aliases = !git config -l | grep alias | cut -c 7-
+
+	churn = !git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print "count,file"} {print $1 "," $2}'
+	root = rev-parse --show-toplevel

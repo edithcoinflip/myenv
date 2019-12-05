@@ -1,0 +1,28 @@
+#my aliases
+
+alias rm="rm -f"
+
+alias rmbf="rm -rf *~ \#*"
+alias rmvbf="rm -rfv *~ \#*"
+alias ..="cd .."
+alias ...="cd ..."
+
+#rotator
+alias rd="pushd"
+#use for actual pushing
+alias pud="pushd"
+alias pudn="pushd -n"
+alias popn="popd -n"
+
+#git
+alias g='git'
+alias gbr='git brv'
+
+#tasty aliases
+alias or-make='docker run --rm -i -t -v $(pwd):/source -w /source/Servers/sxOR2/ tastyworks/dev make -j4'
+
+alias tw-make='docker run --rm -i -t -v $(pwd):/source -w /source/ tastyworks/dev make -j4'
+
+alias tw-bash='docker run --rm -i -t --env-file env.list --privileged -v $(pwd):/source -w /source/ tastyworks/dev /bin/bash'
+
+alias sx-bash='docker run --rm -i -t --privileged -v $(pwd):/source -w /source/ tastyworks/dev /bin/bash'
