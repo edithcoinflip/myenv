@@ -1,28 +1,102 @@
-#my aliases
+#!/bin/bash
 
-alias rm="rm -f"
+# Aliases
+# #######
 
-alias rmbf="rm -rf *~ \#*"
-alias rmvbf="rm -rfv *~ \#*"
-alias ..="cd .."
-alias ...="cd ..."
+# Some example alias instructions
+# If these are enabled they will be used instead of any instructions
+# they may mask.  For example, alias rm='rm -i' will mask the rm
+# application.  To override the alias instruction use a \ before, ie
+# \rm will call the real rm not the alias.
 
-#rotator
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    eval "`dircolors -b`"
+    alias ls='ls -G'
+    alias dir='dir --color=always'
+    alias vdir='vdir --color=always'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# Interactive operation...
+alias ..='cd ..'
+alias ...='cd ../../'
+
+# Default to human readable figures
+alias df='df -h'
+alias du='du -h'
+
+alias ebrc='emacs ~/.bashrc &' #edit my bashrc from anywhere
+
+# Misc :)
+alias less='less -R'
+#alias grep='grep --color'                     # show differences in colour
+
+# Some shortcuts for different directory listings
+alias dir='ls --color=auto --format=vertical'
+alias vdir='ls --color=auto --format=long'
+# alias ls='ls -hF --color=tty'                 # classify files in colour
+# alias ll='ls -l'                              # long list
+# alias la='ls -A'                              # all but . and ..
+# alias l='ls -CF'                              #
+alias ls='ls -h -G -B'                 # classify files in colour
+alias ll='ls -l'
+alias lt='ls -ltrash'
+alias ks='\ls -h -G -a'
+
+
+alias pg='ps -ef | grep'
+alias ms='pg aedel' #my userID because aedelstein doesnt show up :-\
+alias untz='tar -xzvf'
+alias untj='tar -xjvf'
+
+#rotator / dirs
+alias dj='pushd .' #add cur to stack
+alias dk='pushd' # rotate on stack with no args, push and go to dir on arg
+alias dkn='pushd -n' # push but dont go
+alias dx='popd' # pop and go to next or use args
+alias dxn='popd -n' # pop next and stay
 alias rd="pushd"
 #use for actual pushing
 alias pud="pushd"
 alias pudn="pushd -n"
 alias popn="popd -n"
 
-#git
+alias tounix='fromdos'
+
+#alias make='taskset -c 1-14,17-30 make'
+#alias mrclean='make cleanall dist-clean-all install-clean-all'
+alias repo='cd ~/repos/'
+alias _root='cd $ROOT'
+#What is root?
+alias wrt='echo "Root is $ROOT"'
+alias rpy='rm -f *.pyc'
+
+alias rm='rm -i'
+# alias cp='cp -i'
+# alias mv='mv -i'
+alias rmbf='rm -f *~ .*~ \#*'
+
+#GIT
 alias g='git'
-alias gbr='git brv'
+alias gbr='g br -vv'
+alias mrclean="git clean -X -d -f"
+alias grab="git fetch -p && git fetch -t"
+#alias cgrab="grab && taskset -c 1-14,17-30 git gc --aggressive"
+alias cgrab="grab && git gc --aggressive"
 
-#tasty aliases
+#SVN
+alias svndiff='svn diff -x -w'
+alias blog='svn log --stop-on-copy | less'
+
+#BEANS
+alias beans="netbeans -J-Xmx3g -J-XX:-UseGCOverheadLimit -J-Dnetbeans.indexing.recursiveListeners=false -J-Dswing.aatext=true &"
+
+#TASTY
 alias or-make='docker run --rm -i -t -v $(pwd):/source -w /source/Servers/sxOR2/ tastyworks/dev make -j4'
-
 alias tw-make='docker run --rm -i -t -v $(pwd):/source -w /source/ tastyworks/dev make -j4'
-
 alias tw-bash='docker run --rm -i -t --env-file env.list --privileged -v $(pwd):/source -w /source/ tastyworks/dev /bin/bash'
-
 alias sx-bash='docker run --rm -i -t --privileged -v $(pwd):/source -w /source/ tastyworks/dev /bin/bash'
