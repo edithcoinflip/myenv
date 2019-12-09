@@ -1,12 +1,12 @@
 #!/bin/bash
 # .bash_profile
 
+export PATH="${HOME}/bin:/usr/local/sbin:$PATH"
+
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
         source ~/.bashrc
 fi
-
-export PATH="${HOME}/bin:/usr/local/sbin:$PATH"
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 

@@ -5,11 +5,11 @@
 
 # Source global definitions
 if [ -f /etc/bash.bashrc ]; then
-    . /etc/bash.bashrc
+    source /etc/bash.bashrc
 fi
 
 if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+    source /etc/bashrc
 fi
 
 #one time per session
@@ -19,7 +19,7 @@ then
     export MYLD_PATH=$LD_LIBRARY_PATH
 fi
 export PATH=${MYRC_PREPATH}
-export LD_LIBRARY_PATH=${MYLD_PATH}:/usr/local/jump/mpfr/lib
+export LD_LIBRARY_PATH=${MYLD_PATH}
 
 #######
 #Exports
@@ -62,7 +62,6 @@ fi
 if [ -f ~/.bash_func ]; then
     source ~/.bash_func
 fi
-
 
 #############
 # Completions
@@ -113,6 +112,6 @@ fi
 
 export TOOLCHAIN="c11"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
