@@ -1,5 +1,16 @@
+package age
+package brew
+package cd
 package direnv
+package docker-machine
 package foreign-env
+package hub
 package nvm
+package open_github
+package osx
+package title
+package vcs
+theme bobthefish
 theme default
+theme gitstatus
 theme spacefish
