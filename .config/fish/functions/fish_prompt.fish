@@ -1,0 +1,1 @@
+/Users/adam.edelstein/.local/share/omf/themes/spacefish/fish_prompt.fish
