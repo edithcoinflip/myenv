@@ -3,7 +3,7 @@
 	email = Adam.Edelstein@tastytrade.com
 	username = adam.edelstein
 [core]
-	editor = "~/bin/emacs -nw"
+	editor = "~/bin/emacs"
 	excludesfile = ~/.gitignore
 	whitespace=space-before-tab,trailing-space
 
