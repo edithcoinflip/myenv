@@ -59,11 +59,11 @@ alias dk='pushd' # rotate on stack with no args, push and go to dir on arg
 alias dkn='pushd -n' # push but dont go
 alias dx='popd' # pop and go to next or use args
 alias dxn='popd -n' # pop next and stay
-alias rd="pushd"
+alias rd='pushd'
 #use for actual pushing
-alias pud="pushd"
-alias pudn="pushd -n"
-alias popn="popd -n"
+alias pud='pushd'
+alias pudn='pushd -n'
+alias popn='popd -n'
 
 alias tounix='fromdos'
 
@@ -83,10 +83,10 @@ alias rmbf='rm -f *~ .*~ \#*'
 #GIT
 alias g='git'
 alias gbr='g br -vv'
-alias mrclean="git clean -X -d -f"
-alias grab="git fetch -p && git fetch -t"
+alias mrclean='git clean -X -d -f'
+alias grab='git fetch -p && git fetch -t'
 #alias cgrab="grab && taskset -c 1-14,17-30 git gc --aggressive"
-alias cgrab="grab && git gc --aggressive"
+alias cgrab='grab && git gc --aggressive'
 
 #SVN
 alias svndiff='svn diff -x -w'
@@ -97,6 +97,7 @@ alias beans="netbeans -J-Xmx3g -J-XX:-UseGCOverheadLimit -J-Dnetbeans.indexing.r
 
 #TASTY
 alias or-make='docker run --rm -i -t -v $(pwd):/source -w /source/Servers/sxOR2/ tastyworks/dev make -j4'
+alias or-bash='docker run --rm -i -t --privileged -v $(pwd):/source -w /source/Servers/sxOR2/ tastyworks/dev /bin/bash'
 alias tw-make='docker run --rm -i -t -v $(pwd):/source -w /source/ tastyworks/dev make -j4'
 alias tw-bash='docker run --rm -i -t --env-file env.list --privileged -v $(pwd):/source -w /source/ tastyworks/dev /bin/bash'
 alias sx-bash='docker run --rm -i -t --privileged -v $(pwd):/source -w /source/ tastyworks/dev /bin/bash'
