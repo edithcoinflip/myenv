@@ -1,5 +1,6 @@
 (require 'package)
 
+;what is this list
 ;context-coloring
 ;helm-spotify-plus
 ;ac-c-headers
@@ -19,6 +20,7 @@
 ;theme-looper
 ;web-mode
 ;whitespace-cleanup-mode
+
 
 (setq package-list '(use-package
 		      auto-compile
@@ -45,14 +47,13 @@
 		      cpputils-cmake
 		      cycle-themes
 		      emacs-setup
-		      git-ps1-mode
 		      gitconfig
 		      gitconfig-mode
 		      github-clone
 		      github-pullrequest
 		      helm
-		      helm-git
 		      helm-git-grep
+		      helm-ls-git
 		      helm-spotify
 		      highlight
 		      ivy
@@ -67,7 +68,7 @@
 		      solarized-theme
 		      sourcetrail
 		      win-switch
-		      yaml-mode		    
+		      yaml-mode
 		      ))
 
 ;; Setup Melpa
@@ -99,7 +100,7 @@ There are two things you can do about this warning:
 
 (dolist (package package-list)
   (unless (eq (package-installed-p package) t)
-    (when 
+    (when
 	(yes-or-no-p (concat
 		      "The package " (symbol-name package)
 		      " is not installed. Install it? "))
@@ -116,23 +117,85 @@ There are two things you can do about this warning:
 (use-package windmove)
 (use-package beacon)
 (use-package auto-complete)
+(use-package auto-complete-c-headers)
 ;(use-package webmode)
 (use-package find-file)
 
+(use-package cedet)
+(use-package semantic)
+;(use-package irony)
 
 (setq custom-safe-themes t)
 (load-theme 'solarized-dark)
+
+;(add-to-list 'markdown-preview-stylesheets "https://raw.githubusercontent.com/richleland/pygments-css/master/emacs.css")
 
 (global-linum-mode 1)
 (column-number-mode 1)
 (beacon-mode 1)
 (ac-config-default)
+(add-to-list 'ac-sources 'ac-source-c-headers)
+(add-to-list 'ac-sources 'ac-source-symbols)
+(add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
+(add-to-list 'ac-sources 'ac-source-files-in-current-dir)
+(add-to-list 'ac-sources 'ac-source-semantic)
+(fa-config-default)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(set-default 'semantic-case-fold t)
 (global-auto-complete-mode t)
 (helm-mode 1)
-(rainbow-delimiters-mode t)
-(rainbow-identifiers-mode t)
-
+(which-func-mode 1)
+(setq uniquify-buffer-name-style 'post-forward)
+(setq uniquify-separator ":")
+(setq uniquify-after-kill-buffer-p t)
 ;variable setting
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ac-etags-requires 1)
+;; '(uniquify-buffer-name-style nil nil (uniquify))
+ '(helm-completing-read-handlers-alist
+   (quote
+    ((basic-save-buffer . helm-read-file-name-handler-1)
+     (debug-on-entry . helm-completing-read-symbols)
+     (describe-function . helm-completing-read-symbols)
+     (describe-symbol . helm-completing-read-symbols)
+     (describe-variable . helm-completing-read-symbols)
+     (dired-do-copy . helm-read-file-name-handler-1)
+     (dired-do-hardlink . helm-read-file-name-handler-1)
+     (dired-do-relsymlink . helm-read-file-name-handler-1)
+     (dired-do-rename . helm-read-file-name-handler-1)
+     (dired-do-symlink . helm-read-file-name-handler-1)
+     (disassemble . helm-completing-read-symbols)
+     (execute-extended-command)
+     (ffap . helm-completing-read-sync-default-handler)
+     (ffap-alternate-file)
+     (find-file . ido)
+     (find-file-read-only . ido)
+     (find-file-at-point . helm-completing-read-sync-default-handler)
+     (find-function . helm-completing-read-symbols)
+     (find-tag . helm-completing-read-default-find-tag)
+     (org-capture . helm-org-completing-read-tags)
+     (tmm-menubar)
+     (trace-function . helm-completing-read-symbols)
+     (trace-function-background . helm-completing-read-symbols)
+     (trace-function-foreground . helm-completing-read-symbols)
+     (write-file . helm-read-file-name-handler-1)
+     (write-region . helm-read-file-name-handler-1)
+     (xref-find-definitions . helm-completing-read-default-find-tag)
+     (xref-find-references . helm-completing-read-default-find-tag))))
+ '(package-selected-packages
+   (quote
+    (fish-completion fish-mode ac-etags function-args flycheck-irony call-graph helm-ls-git git-timemachine git-blamed find-things-fast find-file-in-repository markup-faces markdown-preview-mode markdown-mode+ markdown-mode flymd vmd-mode gh-md yaml-mode win-switch use-package sourcetrail solarized-theme rainbow-identifiers rainbow-delimiters rainbow-blocks package+ osx-clipboard json-mode js2-mode jedi ivy highlight helm-spotify helm-git-grep github-pullrequest github-clone gitconfig-mode gitconfig emacs-setup cycle-themes cpputils-cmake cpp-capf cpp-auto-include company-jedi company-irony-c-headers company-irony company-c-headers cmake-mode cmake-ide c-eldoc bicycle beacon bash-completion avy auto-package-update auto-highlight-symbol auto-complete-nxml auto-complete-clang auto-complete-c-headers auto-compile)))
+ )
+
+(eval-after-load "etags"
+  '(progn
+      (ac-etags-setup)))
 
 (setq c-default-style "linux")
 (setq compilation-window-height 16)
@@ -160,6 +223,7 @@ There are two things you can do about this warning:
 (blink-cursor-mode 0) ;; Stop this crazy blinking cursor
 (global-hl-line-mode) ;; highlight current line subtly, to help find cursor
 (fset 'yes-or-no-p 'y-or-n-p) ;; Make all "yes or no" prompts be "y or n" instead
+;(mac-auto-operator-composition-mode)
 
 ;; Get rid of the visual bell for some common 'errors'
 (setq ring-bell-function
@@ -247,7 +311,31 @@ There are two things you can do about this warning:
   (c-set-offset (quote substatement-open) 0 nil)
   (c-set-offset 'case-label '+)
   (c-subword-mode 1)
+  (rainbow-delimiters-mode t)
+  (rainbow-identifiers-mode t)
   )
+
+(defun my-c++-mode-hook ()
+  (c-set-style "linux")
+  (c-toggle-hungry-state 1)
+  (setq indent-tabs-mode nil)
+  (setq show-trailing-whitespace t)
+  (setq c-basic-offset 2
+        c-brace-offset 0
+        c-continued-brace-offset 0
+        c-continued-statement-offset 0
+        c-brace-imaginary-offset 0
+        c-argdecl-indent 2
+        c-label-offset -2)
+  (linum-mode)
+  (c-set-offset (quote substatement-open) 0 nil)
+  (c-set-offset 'case-label '+)
+  (c-subword-mode 1)
+  (rainbow-delimiters-mode t)
+  (rainbow-identifiers-mode t)
+  )
+
+
 
 (defun my-python-mode-hook ()
   (linum-mode)
@@ -272,7 +360,17 @@ There are two things you can do about this warning:
 ;; Hook work
 
 (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
+(add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
+(add-hook 'c-mode-common-hook 'ac-etags-ac-setup)
+(add-hook 'ruby-mode-common-hook 'ac-etags-ac-setup)
 (add-hook 'makefile-mode-hook 'whitespace-mode)
+(add-hook 'makefile-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'makefile-mode-hook 'rainbow-identifiers-mode)
+(add-hook 'shell-script-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'shell-script-mode-hook 'rainbow-identifiers-mode)
+(add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'lisp-mode-hook 'rainbow-identifiers-mode)
+
 (add-hook 'c-mode-common-hook
 	  (lambda()
 	    (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
@@ -283,9 +381,21 @@ There are two things you can do about this warning:
 	  (lambda()
 	    (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
+(add-hook 'c++-mode-common-hook 'my-c++-mode-hook)
+(add-hook 'c++-mode (lambda () (add-to-list 'ac-sources 'ac-source-semantic)))
+(add-hook 'c++-mode-hook
+          (lambda ()
+           (local-set-key (kbd "C-c .") 'ac-complete-semantic)))
+
 (add-hook 'python-mode-hook 'my-python-mode-hook)
 (add-hook 'python-mode-hook 'jedi:setup)
 (add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
+
+
+(global-semanticdb-minor-mode 1)
+(global-semantic-idle-scheduler-mode 1)
+(semantic-mode 1)
+(global-semantic-decoration-mode 1)
 
 ;;custom stuff
 
@@ -325,12 +435,15 @@ There are two things you can do about this warning:
 (global-set-key (kbd "s-k") 'next-buffer)
 (global-set-key "\C-x\C-c" 'close-frame-or-exit)
 (define-key global-map "\C-cv" 'sourcepair-load)
-
+(global-set-key [s-mouse-1] 'mouse-set-font)
+;; Complete file name by C-c /
+(global-set-key (kbd "C-c /") 'ac-complete-filename)
+(global-set-key( kbd "<f3>") 'kmacro-start-macro)
+(global-set-key( kbd "<f4>") 'kmacro-end-macro)
 ;;(global-set-key (kbd "\s-left")  'windmove-left)
 ;;(global-set-key (kbd "\s-right") 'windmove-right)
 ;;(global-set-key (kbd "\s-up")    'windmove-up)
 ;;(global-set-key (kbd "\s-down")  'windmove-down)
-
 (windmove-default-keybindings 'super)
 
 ;;extra helm bindssure
@@ -341,46 +454,7 @@ There are two things you can do about this warning:
   '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-completing-read-handlers-alist
-   (quote
-    (
-     (basic-save-buffer . helm-read-file-name-handler-1)
-     (debug-on-entry . helm-completing-read-symbols)
-     (describe-function . helm-completing-read-symbols)
-     (describe-symbol . helm-completing-read-symbols)
-     (describe-variable . helm-completing-read-symbols)
-     (dired-do-copy . helm-read-file-name-handler-1)
-     (dired-do-hardlink . helm-read-file-name-handler-1)
-     (dired-do-relsymlink . helm-read-file-name-handler-1)
-     (dired-do-rename . helm-read-file-name-handler-1)
-     (dired-do-symlink . helm-read-file-name-handler-1)
-     (disassemble . helm-completing-read-symbols)
-     (execute-extended-command)
-     (ffap . helm-completing-read-sync-default-handler)
-     (ffap-alternate-file)
-     (find-file . ido)
-     (find-file-read-only . ido)
-     (find-file-at-point . helm-completing-read-sync-default-handler)
-     (find-function . helm-completing-read-symbols)
-     (find-tag . helm-completing-read-default-find-tag)
-     (org-capture . helm-org-completing-read-tags)
-     (tmm-menubar)
-     (trace-function . helm-completing-read-symbols)
-     (trace-function-background . helm-completing-read-symbols)
-     (trace-function-foreground . helm-completing-read-symbols)
-     (write-file . helm-read-file-name-handler-1)
-     (write-region . helm-read-file-name-handler-1)
-     (xref-find-definitions . helm-completing-read-default-find-tag)
-     (xref-find-references . helm-completing-read-default-find-tag)
-     ))
-   )
- '(uniquify-buffer-name-style nil nil (uniquify))
- )
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
