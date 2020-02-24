@@ -140,4 +140,8 @@ if [ -f ${GITPROMPTFILE} ]; then
 fi
 unset GITPROMPTFILE
 
+function prompt_callback {
+    gp_set_window_title "\u@\h \w"
+}
+
 ##END PROMPT
