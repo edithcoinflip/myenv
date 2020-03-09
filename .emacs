@@ -157,7 +157,6 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-etags-requires 1)
-;; '(uniquify-buffer-name-style nil nil (uniquify))
  '(helm-completing-read-handlers-alist
    (quote
     ((basic-save-buffer . helm-read-file-name-handler-1)
@@ -190,8 +189,7 @@ There are two things you can do about this warning:
      (xref-find-references . helm-completing-read-default-find-tag))))
  '(package-selected-packages
    (quote
-    (fish-completion fish-mode ac-etags function-args flycheck-irony call-graph helm-ls-git git-timemachine git-blamed find-things-fast find-file-in-repository markup-faces markdown-preview-mode markdown-mode+ markdown-mode flymd vmd-mode gh-md yaml-mode win-switch use-package sourcetrail solarized-theme rainbow-identifiers rainbow-delimiters rainbow-blocks package+ osx-clipboard json-mode js2-mode jedi ivy highlight helm-spotify helm-git-grep github-pullrequest github-clone gitconfig-mode gitconfig emacs-setup cycle-themes cpputils-cmake cpp-capf cpp-auto-include company-jedi company-irony-c-headers company-irony company-c-headers cmake-mode cmake-ide c-eldoc bicycle beacon bash-completion avy auto-package-update auto-highlight-symbol auto-complete-nxml auto-complete-clang auto-complete-c-headers auto-compile)))
- )
+    (tramp helm-tramp docker-tramp fish-completion fish-mode ac-etags function-args flycheck-irony call-graph helm-ls-git git-timemachine git-blamed find-things-fast find-file-in-repository markup-faces markdown-preview-mode markdown-mode+ markdown-mode flymd vmd-mode gh-md yaml-mode win-switch use-package sourcetrail solarized-theme rainbow-identifiers rainbow-delimiters rainbow-blocks package+ osx-clipboard json-mode js2-mode jedi ivy highlight helm-spotify helm-git-grep github-pullrequest github-clone gitconfig-mode gitconfig emacs-setup cycle-themes cpputils-cmake cpp-capf cpp-auto-include company-jedi company-irony-c-headers company-irony company-c-headers cmake-mode cmake-ide c-eldoc bicycle beacon bash-completion avy auto-package-update auto-highlight-symbol auto-complete-nxml auto-complete-clang auto-complete-c-headers auto-compile))))
 
 (eval-after-load "etags"
   '(progn
