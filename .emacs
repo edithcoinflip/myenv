@@ -46,6 +46,7 @@
 		      cpp-capf
 		      cpputils-cmake
 		      cycle-themes
+		      dockerfile-mode
 		      emacs-setup
 		      gitconfig
 		      gitconfig-mode
@@ -189,7 +190,7 @@ There are two things you can do about this warning:
      (xref-find-references . helm-completing-read-default-find-tag))))
  '(package-selected-packages
    (quote
-    (tramp helm-tramp docker-tramp fish-completion fish-mode ac-etags function-args flycheck-irony call-graph helm-ls-git git-timemachine git-blamed find-things-fast find-file-in-repository markup-faces markdown-preview-mode markdown-mode+ markdown-mode flymd vmd-mode gh-md yaml-mode win-switch use-package sourcetrail solarized-theme rainbow-identifiers rainbow-delimiters rainbow-blocks package+ osx-clipboard json-mode js2-mode jedi ivy highlight helm-spotify helm-git-grep github-pullrequest github-clone gitconfig-mode gitconfig emacs-setup cycle-themes cpputils-cmake cpp-capf cpp-auto-include company-jedi company-irony-c-headers company-irony company-c-headers cmake-mode cmake-ide c-eldoc bicycle beacon bash-completion avy auto-package-update auto-highlight-symbol auto-complete-nxml auto-complete-clang auto-complete-c-headers auto-compile))))
+    (dockerfile-mode tramp helm-tramp docker-tramp fish-completion fish-mode ac-etags function-args flycheck-irony call-graph helm-ls-git git-timemachine git-blamed find-things-fast find-file-in-repository markup-faces markdown-preview-mode markdown-mode+ markdown-mode flymd vmd-mode gh-md yaml-mode win-switch use-package sourcetrail solarized-theme rainbow-identifiers rainbow-delimiters rainbow-blocks package+ osx-clipboard json-mode js2-mode jedi ivy highlight helm-spotify helm-git-grep github-pullrequest github-clone gitconfig-mode gitconfig emacs-setup cycle-themes cpputils-cmake cpp-capf cpp-auto-include company-jedi company-irony-c-headers company-irony company-c-headers cmake-mode cmake-ide c-eldoc bicycle beacon bash-completion avy auto-package-update auto-highlight-symbol auto-complete-nxml auto-complete-clang auto-complete-c-headers auto-compile))))
 
 (eval-after-load "etags"
   '(progn
@@ -334,7 +335,6 @@ There are two things you can do about this warning:
   )
 
 
-
 (defun my-python-mode-hook ()
   (linum-mode)
   (setq show-trailing-whitespace t)
@@ -355,12 +355,19 @@ There are two things you can do about this warning:
 ;  (pretty-lambda-mode 1)
   )
 
+(defun my-dockerfile-hook ()
+  (setq indent-tabs-mode nil)
+  (setq tab-width 4)
+  )
+
+
 ;; Hook work
 
-(add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
-(add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
+;(add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
+;(add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
 (add-hook 'c-mode-common-hook 'ac-etags-ac-setup)
 (add-hook 'ruby-mode-common-hook 'ac-etags-ac-setup)
+(add-hook 'dockerfile-mode-hook 'whitespace-mode)
 (add-hook 'makefile-mode-hook 'whitespace-mode)
 (add-hook 'makefile-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'makefile-mode-hook 'rainbow-identifiers-mode)
@@ -383,7 +390,8 @@ There are two things you can do about this warning:
 (add-hook 'c++-mode (lambda () (add-to-list 'ac-sources 'ac-source-semantic)))
 (add-hook 'c++-mode-hook
           (lambda ()
-           (local-set-key (kbd "C-c .") 'ac-complete-semantic)))
+	    (local-set-key (kbd "C-c .") 'ac-complete-semantic)))
+(add-hook 'dockerfile-mode-hook 'my-dockerfile-hook)
 
 (add-hook 'python-mode-hook 'my-python-mode-hook)
 (add-hook 'python-mode-hook 'jedi:setup)
